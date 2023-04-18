@@ -1,0 +1,64 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "aspName": {
+      "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}02"
+    },
+    "webAppName": {
+      "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-webapp }}#{{ nc-region-id }}03"
+    },
+    "webAppURLPrefix": {
+      "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-webapp }}#{{ nc-region-id }}03"
+    },
+    "webAppDomainSuffix": {
+      "value": "azurewebsites.net"
+    },
+    "vnetResourceGroup": {
+      "value": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01"
+    },
+    "vnetName": {
+      "value": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-virtualnetwork }}#{{ nc-region-id }}01"
+    },
+    "vnetSubnetName": {
+      "value": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-region-id }}34"
+    },
+    "allowSubnetNames": {
+      "value": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-region-id }}34"
+    },
+    "buildAgentIPAddress": {
+      "value": "#{{ buildAgentIP }}"
+    },
+    "appInsightsName": {
+      "value": "#{{ Environment.Name }}TRD#{{ nc-function-infrastructure }}#{{ nc-resource-appinsights }}#{{ nc-region-id }}01"
+    },
+    "appInsightsResourceGroup": {
+      "value": "#{{ Environment.Name }}TRD#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01"
+    },
+    "customTags": {
+      "value": {
+        "Name": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-webapp }}#{{ nc-region-id }}03",
+        "Purpose": "TRADE-GC-TRADE-SERVICE-API"
+      }
+    },
+    "privateEndpoint": {
+      "value": {
+        "name": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-region-id }}08",
+        "vnetResourceGroup": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01",
+        "vnetName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-virtualnetwork }}#{{ nc-region-id }}01",
+        "vnetSubnetName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-region-id }}29"
+      }
+    },
+    "environment": {
+      "value": "#{{ Environment.Name }}"
+    },
+    "aspClientId": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/#{{ subscriptionId }}/resourceGroups/#{{ Environment.Name }}TRD#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}1001/providers/Microsoft.KeyVault/vaults/#{{ Environment.Name }}TRD#{{ nc-function-infrastructure }}#{{ nc-resource-keyvault }}1001"
+        },
+        "secretName": "GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}1002-OAuth-ClientId"
+      }
+    }
+  }
+}

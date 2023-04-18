@@ -1,0 +1,50 @@
+name: 'V1-B$(Date:yyyyMMdd)-$(BuildID)'
+
+parameters:
+  - name: forceDevDeploy
+    displayName: "Force deployment to DEV"
+    type: boolean
+    default: false
+  - name: deployToSecondary
+    displayName: "Select Secondary Region"
+    type: string
+    default: PRD
+    values:
+      - None
+      - DEV
+      - TST
+      - PRE
+      - PRD
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - '*'
+  paths:
+    include:
+      - functionapps/certificate-service/*
+
+resources:
+  repositories:
+    - repository: trdPipelineCommon
+      name: DEFRA-TRD/Defra.TRD.Pipeline.Common
+      type: git
+      ref: pp/gc-subnets
+
+extends:
+  template: /templates/defra-common-arm-deploy.yaml@trdPipelineCommon
+  parameters:
+    templates:
+      - path: functionapps/certificate-service
+        name: certificate-service
+        resourceGroupName: '$(Environment.Name)GC$(nc-function-infrastructure)$(nc-resource-resourcegroup)$(nc-region-id)01'
+        scope: 'Resource Group'
+        type: 'bicep'
+        runPrivateEndpointDns: true
+        resourceName: '$(Environment.Name)GC$(nc-function-web)$(nc-resource-functionapp)$(nc-region-id)03'
+    forceDevDeploy: ${{ parameters.forceDevDeploy }}
+    deployToSecondary: ${{ parameters.deployToSecondary }}
+    projectName: TRE
+    keyVaultName: '$(Environment.Name)trdinfkv1001'
+    

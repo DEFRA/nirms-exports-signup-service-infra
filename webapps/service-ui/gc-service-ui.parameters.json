@@ -1,0 +1,56 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "aspName": {
+            "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}01"
+        },
+        "webAppName": {
+            "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-webapp }}#{{ nc-region-id }}01"
+        },
+        "webAppURLPrefix": {
+            "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-webapp }}#{{ nc-region-id }}01"
+        },
+        "webAppDomainSuffix": {
+            "value": "azurewebsites.net"
+        },
+        "vnetResourceGroup": {
+            "value": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01"
+        },
+        "vnetName": {
+            "value": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-virtualnetwork }}#{{ nc-region-id }}01"
+        },
+        "vnetSubnetName": {
+            "value": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-region-id }}33"
+        },
+        "allowSubnetIds": {
+            "value": "/subscriptions/#{{ subscriptionId }}/resourceGroups/#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01/providers/Microsoft.Network/virtualNetworks/#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-virtualnetwork }}#{{ nc-region-id }}01/subnets/#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-region-id }}33"
+        },
+        "buildAgentIPAddress": {
+            "value": "#{{ buildAgentIP }}"
+        },
+        "appInsightsName": {
+            "value": "#{{ Environment.Name }}TRD#{{ nc-function-infrastructure }}#{{ nc-resource-appinsights }}#{{ nc-region-id }}01"
+        },
+        "appInsightsResourceGroup": {
+            "value": "#{{ Environment.Name }}TRD#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01"
+        },
+        "privateEndpoint": {
+            "value": {
+                "name": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-region-id }}01",
+                "vnetResourceGroup": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01",
+                "vnetName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-virtualnetwork }}#{{ nc-region-id }}01",
+                "vnetSubnetName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-region-id }}29"
+            }
+        },
+        "customTags": {
+            "value": {
+                "Name": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-webapp }}#{{ nc-region-id }}01",
+                "Purpose": "TRADE-GC-SERVICE-UI"
+            }
+        },
+        "environment": {
+            "value": "#{{ Environment.Name }}"
+        }
+    }
+}

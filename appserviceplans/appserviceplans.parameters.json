@@ -1,0 +1,93 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "environment": {
+            "value": "#{{ Environment.Name }}"
+        },
+        "gcUIASP": {
+            "value": {
+                "name": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}01",
+                "sku": {
+                    "name": "P1v3",
+                    "tier": "PremiumV3",
+                    "size": "P1v3",
+                    "family": "Pv3",
+                    "capacity": 3
+                },
+                "autoscaleSettings": {
+                    "autoscaleEnabled": "true",
+                    "mincapacity": "#{{ minCapacity }}",
+                    "maxcapacity": "#{{ maxcapacity }}",
+                    "defaultcapacity": "#{{ defaultcapacity }}",
+                    "metrics": [
+                        {
+                            "name": "CpuPercentage",
+                            "thresholdToScaleOut": "70",
+                            "thresholdToScaleIn": "50"
+                        },
+                        {
+                            "name": "MemoryPercentage",
+                            "thresholdToScaleOut": "80",
+                            "thresholdToScaleIn": "50"
+                        }
+                    ]
+                },
+                "customTags": {
+                    "Name": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}01",
+                    "Purpose": "TRADE-GC-UI-APPS"
+                }
+            }
+        },
+        "gcBackendAppsASP01": {
+            "value": {
+                "name": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}02",
+                "sku": {
+                    "name": "P1v3",
+                    "tier": "PremiumV3",
+                    "size": "P1v3",
+                    "family": "Pv3",
+                    "capacity": 3
+                },
+                "autoscaleSettings": {
+                    "autoscaleEnabled": "true",
+                    "mincapacity": "#{{ minCapacity }}",
+                    "maxcapacity": "#{{ maxcapacity }}",
+                    "defaultcapacity": "#{{ defaultcapacity }}",
+                    "metrics": [
+                        {
+                            "name": "CpuPercentage",
+                            "thresholdToScaleOut": "70",
+                            "thresholdToScaleIn": "50"
+                        },
+                        {
+                            "name": "MemoryPercentage",
+                            "thresholdToScaleOut": "80",
+                            "thresholdToScaleIn": "50"
+                        }
+                    ]
+                },
+                "customTags": {
+                    "Name": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}02",
+                    "Purpose": "TRADE-GC-BACKEND-APPS-01"
+                }
+            }
+        },
+        "gcFuntionAppsASP01": {
+            "value": {
+              "name": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}03",
+              "sku": {
+                "name": "EP1",
+                "tier": "ElasticPremium",
+                "size": "EP1",
+                "family": "EP",
+                "capacity": 1
+              },
+              "customTags": {
+                  "Name": "##{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}03",
+                  "Purpose": "TRADE-GC-FUNCTION-APPS-01"
+              }
+            }
+          }
+    }
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environment": {
+      "value": "#{{ Environment.Name }}"
+    },
+    "aspName": {
+      "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}03"
+    },
+    "functionAppName": {
+      "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-functionapp }}#{{ nc-region-id }}03"
+    },
+    "functionAppURLPrefix": {
+      "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-functionapp }}#{{ nc-region-id }}03"
+    },
+    "functionAppDomainSuffix": {
+      "value": "azurewebsites.net"
+    },
+    "appInsightsName": {
+      "value": "#{{ Environment.Name }}TRD#{{ nc-function-infrastructure }}#{{ nc-resource-appinsights }}#{{ nc-region-id }}01"
+    },
+    "appInsightsResourceGroup": {
+      "value": "#{{ Environment.Name }}TRD#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01"
+    },
+    "buildAgentIPAddress": {
+      "value": "#{{ buildAgentIP }}"
+    },
+    "vnetResourceGroup": {
+      "value": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01"
+    },
+    "vnetName": {
+      "value": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-virtualnetwork }}#{{ nc-region-id }}01"
+    },
+    "vnetSubnetName": {
+      "value": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-region-id }}35"
+    },
+    "functionApplogStorageName": {
+      "value": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-storageaccount }}1003"
+    },
+    "functionApplogStorageResourceGroup": {
+      "value": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}1001"
+    },
+    "customTags": {
+      "value": {
+        "Name": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-functionapp }}#{{ nc-region-id }}03",
+        "Purpose": "TRADE-GC-CERTIFICATE-SERVICE"
+      }
+    },
+    "privateEndpoint": {
+      "value": {
+        "name": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-region-id }}11",
+        "vnetResourceGroup": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01",
+        "vnetName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-virtualnetwork }}#{{ nc-region-id }}01",
+        "vnetSubnetName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-region-id }}37"
+      }
+    }
+  }
+}

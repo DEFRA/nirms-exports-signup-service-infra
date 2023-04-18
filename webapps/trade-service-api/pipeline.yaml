@@ -1,0 +1,49 @@
+name: 'V1-B$(Date:yyyyMMdd)-$(BuildID)'
+
+parameters:
+  - name: forceDevDeploy
+    displayName: "Force deployment to DEV"
+    type: boolean
+    default: false
+  - name: deployToSecondary
+    displayName: "Select Secondary Region"
+    type: string
+    default: PRD
+    values:
+      - None
+      - DEV
+      - TST
+      - PRE
+      - PRD
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - '*'
+  paths:
+    include:
+      - webapps/trade-service-api/*
+
+resources:
+  repositories:
+    - repository: trdPipelineCommon
+      name: DEFRA-TRD/Defra.TRD.Pipeline.Common
+      type: git
+      ref: pp/gc-subnets
+      
+extends:
+  template: /templates/defra-common-arm-deploy.yaml@trdPipelineCommon
+  parameters:
+    templates:
+      - path: webapps/trade-service-api
+        name: gc-tradeservice-api
+        resourceGroupName: '$(Environment.Name)GC$(nc-function-infrastructure)$(nc-resource-resourcegroup)$(nc-region-id)01'
+        scope: 'Resource Group'
+        type: 'bicep'
+        runPrivateEndpointDns: true
+        resourceName: '$(Environment.Name)GC$(nc-function-web)$(nc-resource-webapp)$(nc-region-id)03'
+    forceDevDeploy: ${{ parameters.forceDevDeploy }}
+    deployToSecondary: ${{ parameters.deployToSecondary}}
+    projectName: TRS
+    keyVaultName: '$(Environment.Name)trdinfkv1001'

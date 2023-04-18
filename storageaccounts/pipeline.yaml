@@ -1,0 +1,57 @@
+name: 'V1-B$(Date:yyyyMMdd)-$(BuildID)'
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - '*'
+  paths:
+    include:
+    - storageaccounts
+
+parameters:
+  - name: forceDevDeploy
+    displayName: "Force deployment to DEV"
+    type: boolean
+    default: false
+  - name: deployToSecondary
+    displayName: "Select Secondary Region"
+    type: string
+    default: PRD
+    values:
+      - None
+      - DEV
+      - TST
+      - PRE
+      - PRD
+
+resources:
+  repositories:
+    - repository: trdPipelineCommon
+      name: DEFRA-TRD/Defra.TRD.Pipeline.Common
+      type: git
+      ref: master
+extends:
+  template: /templates/defra-common-arm-deploy.yaml@trdPipelineCommon
+  parameters:
+    templates:
+      - path: storageaccounts
+        name: storageaccounts
+        scope: 'Resource Group'
+        type: 'bicep'
+        resourceGroupName: '$(Environment.Name)GC$(nc-function-infrastructure)$(nc-resource-resourcegroup)$(nc-region-id)01'
+        postDeployScriptsList:
+          - displayName: Resolve Private Endpoint IPs
+            scriptRepo: trdPipelineCommon
+            scriptPath: /templates/powershell/private-link/resolve-endpoint-ips.ps1
+            scriptArguments: -TemplateOutput '$(azureDeploymentOutputs)'
+              
+          - displayName: Set Private Endpoint DNS
+            serviceConnectionVariableName: 'privateLinkDnsServiceConnection'
+            scriptRepo: trdPipelineCommon
+            scriptPath: /templates/powershell/private-link/private-endpoint-dns.ps1
+            scriptArguments: >
+             -TemplateOutput '$(templateOutputWithIPs)'
+    forceDevDeploy: ${{ parameters.forceDevDeploy }}
+    secondaryRegionEnvironment: ${{ parameters.deployToSecondary }}
+    projectName: GC

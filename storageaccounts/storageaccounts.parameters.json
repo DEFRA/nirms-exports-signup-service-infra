@@ -1,0 +1,145 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "strgApplicationService01": {
+        "value": {
+          "name": "#{{ environment }}gc#{{ nc-function-infrastructure }}#{{ nc-resource-storageaccount }}1001",
+          "type": "Standard_GRS",
+          "tier": "Standard",
+          "accessTier": "Hot",
+          "supportsHttpsTrafficOnly": "true",
+          "kind": "StorageV2",
+          "customTags": {
+            "Name": "#{{ Environment.Name }}GC#{{ nc-function-infrastructure }}#{{ nc-resource-storageaccount }}1001",
+            "Purpose": "GC-APPLICATION-SERVICE-SA"
+          },
+          "privateEndpoints": {
+            "primaryName": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-region-id }}04",
+            "SecondaryName": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-secondary-region-id }}04",
+            "customTagsPrimary": {
+              "Name": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-region-id }}04",
+              "Purpose": "GC-APPLICATION-SERVICE-SA",
+              "Location": "#{{ primaryRegion }}"
+            },
+            "customTagsSecondary": {
+              "Name": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-secondary-region-id }}04",
+              "Purpose": "GC-APPLICATION-SERVICE-SA",
+              "Location": "#{{ secondaryRegion }}"
+            }
+          }
+        }
+      },
+      "strgTradeService01": {
+        "value": {
+          "name": "#{{ environment }}gc#{{ nc-function-infrastructure }}#{{ nc-resource-storageaccount }}1002",
+          "type": "Standard_GRS",
+          "tier": "Standard",
+          "accessTier": "Hot",
+          "supportsHttpsTrafficOnly": "true",
+          "kind": "StorageV2",
+          "customTags": {
+            "Name": "#{{ Environment.Name }}GC#{{ nc-function-infrastructure }}#{{ nc-resource-storageaccount }}1002",
+            "Purpose": "GC-TRADE-SERVICE-SA"
+          },
+          "privateEndpoints": {
+            "primaryName": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-region-id }}05",
+            "SecondaryName": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-secondary-region-id }}05",
+            "customTagsPrimary": {
+              "Name": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-region-id }}05",
+              "Purpose": "GC-TRADE-SERVICE-SA",
+              "Location": "#{{ primaryRegion }}"
+            },
+            "customTagsSecondary": {
+              "Name": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-secondary-region-id }}05",
+              "Purpose": "GC-TRADE-SERVICE-SA",
+              "Location": "#{{ secondaryRegion }}"
+            }
+          }
+        }
+      },
+      "strgCertificateService01": {
+        "value": {
+          "name": "#{{ environment }}gc#{{ nc-function-infrastructure }}#{{ nc-resource-storageaccount }}1003",
+          "type": "Standard_GRS",
+          "tier": "Standard",
+          "accessTier": "Hot",
+          "supportsHttpsTrafficOnly": "true",
+          "kind": "StorageV2",
+          "customTags": {
+            "Name": "#{{ Environment.Name }}GC#{{ nc-function-infrastructure }}#{{ nc-resource-storageaccount }}1003",
+            "Purpose": "GC-CERTIFICATE-SERVICE-SA"
+          },
+          "privateEndpoints": {
+            "primaryName": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-region-id }}06",
+            "SecondaryName": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-secondary-region-id }}06",
+            "customTagsPrimary": {
+              "Name": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-region-id }}06",
+              "Purpose": "GC-CERTIFICATE-SERVICE-SA",
+              "Location": "#{{ primaryRegion }}"
+            },
+            "customTagsSecondary": {
+              "Name": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-secondary-region-id }}06",
+              "Purpose": "GC-CERTIFICATE-SERVICE-SA",
+              "Location": "#{{ secondaryRegion }}"
+            }
+          }
+        }
+      },
+      "strgNotificationService01": {
+        "value": {
+          "name": "#{{ environment }}gc#{{ nc-function-infrastructure }}#{{ nc-resource-storageaccount }}1004",
+          "type": "Standard_GRS",
+          "tier": "Standard",
+          "accessTier": "Hot",
+          "supportsHttpsTrafficOnly": "true",
+          "kind": "StorageV2",
+          "customTags": {
+            "Name": "#{{ Environment.Name }}GC#{{ nc-function-infrastructure }}#{{ nc-resource-storageaccount }}1004",
+            "Purpose": "GC-NOTIFICATION-SERVICE-SA"
+          },
+          "privateEndpoints": {
+            "primaryName": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-region-id }}07",
+            "SecondaryName": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-secondary-region-id }}07",
+            "customTagsPrimary": {
+              "Name": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-region-id }}07",
+              "Purpose": "GC-NOTIFICATION-SERVICE-SA",
+              "Location": "#{{ primaryRegion }}"
+            },
+            "customTagsSecondary": {
+              "Name": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-secondary-region-id }}07",
+              "Purpose": "GC-NOTIFICATION-SERVICE-SA",
+              "Location": "#{{ secondaryRegion }}"
+            }
+          }
+        }
+      },
+      "tradeVnetInfra": {
+        "value": {
+          "name": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-virtualnetwork }}#{{ nc-region-id }}01",
+          "secondaryName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-virtualnetwork }}#{{ nc-secondary-region-id }}01",
+          "subnets": {
+            "peSubnetName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-region-id }}37",
+            "peSecondarySubnetName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-secondary-region-id }}37"
+          }
+        }
+      },
+      "resourceGroups": {
+        "value": {
+          "tradeVnetRgName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01",
+          "tradeSecondaryVnetRgName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-resourcegroup }}#{{ nc-secondary-region-id }}01",
+          "secondaryRgName": "#{{ Environment.Name }}GC#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-secondary-region-id }}01"
+        }
+      },
+      "privateLinkDnsZoneNameStorage": { "value": "#{{ privateLinkDnsZoneNameStorageBlob }}" },
+      "privateDnsResourceGroups": {
+        "value": {
+          "primary": "#{{ privateLinkDnsResourceGroup }}",
+          "secondary": "#{{ privateLinkDnsResourceGroupSecondary }}"
+        }
+      },
+      "privateEndpointSecondaryResourceGroupLocation": { "value": "#{{ secondaryRegion }}" },
+      "secondaryRegionEnvironment": { "value": "#{{ secondaryRegionEnvironment }}" },
+      "environment": { "value": "#{{ Environment.Name }}" }
+    }
+  }
