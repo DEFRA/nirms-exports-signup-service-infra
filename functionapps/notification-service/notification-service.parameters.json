@@ -52,7 +52,7 @@
         "name": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-region-id }}12",
         "vnetResourceGroup": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01",
         "vnetName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-virtualnetwork }}#{{ nc-region-id }}01",
-        "vnetSubnetName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-region-id }}37"
+        "vnetSubnetName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-region-id }}36"
       }
     }
   }
