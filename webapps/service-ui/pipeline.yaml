@@ -30,7 +30,7 @@ resources:
     - repository: trdPipelineCommon
       name: DEFRA-TRD/Defra.TRD.Pipeline.Common
       type: git
-      ref: pp/gc-subnets
+      ref: master
 
 extends:
   template: /templates/defra-common-arm-deploy.yaml@trdPipelineCommon
