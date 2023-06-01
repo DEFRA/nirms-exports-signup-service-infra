@@ -18,7 +18,7 @@ param location string = resourceGroup().location
 param deploymentDate string = utcNow('yyyyMMdd-HHmmss')
 param createdDate string = utcNow('yyyy-MM-dd')
 
-var deploymentName = 'gc-applicationservice-api-${deploymentDate}'
+var deploymentName = 'sign-up-sign-in-service-api-${deploymentDate}'
 var defaultTags = {
   ServiceCode: 'TRS'
   ServiceName: 'TRS'

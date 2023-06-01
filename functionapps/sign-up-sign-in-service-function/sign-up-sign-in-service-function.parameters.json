@@ -9,10 +9,10 @@
       "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}03"
     },
     "functionAppName": {
-      "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-functionapp }}#{{ nc-region-id }}03"
+      "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-functionapp }}#{{ nc-region-id }}01"
     },
     "functionAppURLPrefix": {
-      "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-functionapp }}#{{ nc-region-id }}03"
+      "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-functionapp }}#{{ nc-region-id }}01"
     },
     "functionAppDomainSuffix": {
       "value": "azurewebsites.net"
@@ -43,16 +43,16 @@
     },
     "customTags": {
       "value": {
-        "Name": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-functionapp }}#{{ nc-region-id }}03",
-        "Purpose": "TRADE-GC-CERTIFICATE-SERVICE"
+        "Name": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-functionapp }}#{{ nc-region-id }}01",
+        "Purpose": "SIGN-UP-SIGN-IN-SERVICE-FUNCTION"
       }
     },
     "privateEndpoint": {
       "value": {
-        "name": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-region-id }}11",
+        "name": "#{{ Environment.Name }}GC#{{ nc-function-network }}#{{ nc-resource-privateendpoint }}#{{ nc-region-id }}03",
         "vnetResourceGroup": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01",
         "vnetName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-virtualnetwork }}#{{ nc-region-id }}01",
-        "vnetSubnetName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-region-id }}36"
+        "vnetSubnetName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-region-id }}29"
       }
     }
   }

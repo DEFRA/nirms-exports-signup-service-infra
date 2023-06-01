@@ -46,7 +46,7 @@
         "customTags": {
             "value": {
                 "Name": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-webapp }}#{{ nc-region-id }}01",
-                "Purpose": "TRADE-GC-SERVICE-UI"
+                "Purpose": "SIGN-UP-SIGN-IN-SERVICE-UI"
             }
         },
         "environment": {

@@ -23,7 +23,7 @@ trigger:
       - '*'
   paths:
     include:
-      - functionapps/trade-service/*
+      - webapps/sign-up-sign-in-service-ui/*
 
 resources:
   repositories:
@@ -36,15 +36,13 @@ extends:
   template: /templates/defra-common-arm-deploy.yaml@trdPipelineCommon
   parameters:
     templates:
-      - path: functionapps/trade-service
-        name: trade-service
+      - path: webapps/sign-up-sign-in-service-ui
+        name: sign-up-sign-in-service-ui
         resourceGroupName: '$(Environment.Name)GC$(nc-function-infrastructure)$(nc-resource-resourcegroup)$(nc-region-id)01'
         scope: 'Resource Group'
         type: 'bicep'
         runPrivateEndpointDns: true
-        resourceName: '$(Environment.Name)GC$(nc-function-web)$(nc-resource-functionapp)$(nc-region-id)02'
+        resourceName: '$(Environment.Name)GC$(nc-function-web)$(nc-resource-webapp)$(nc-region-id)01'
     forceDevDeploy: ${{ parameters.forceDevDeploy }}
-    deployToSecondary: ${{ parameters.deployToSecondary }}
-    projectName: TRE
-    keyVaultName: '$(Environment.Name)trdinfkv1001'
-    
+    projectName: TRS    
+    deployToSecondary: ${{ parameters.deployToSecondary}}

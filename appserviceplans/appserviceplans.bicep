@@ -2,7 +2,6 @@ param createdDate string = utcNow('yyyy-MM-dd')
 param environment string
 param gcUIASP object
 param gcBackendAppsASP01 object
-param gcFuntionAppsASP01 object
 param location string = resourceGroup().location
 
 var defaultTags = {
@@ -250,29 +249,5 @@ resource gcBackendAppsASP01_name_setting 'Microsoft.Insights/autoscalesettings@2
     ]
     enabled: gcBackendAppsASP01.autoscaleSettings.autoscaleEnabled
     targetResourceUri: gcBackendAppsASP01Resource.id
-  }
-}
-
-
-resource gcFuntionAppsASP01Resource 'Microsoft.Web/serverfarms@2020-06-01' = {
-  name: gcFuntionAppsASP01.name
-  location: location
-  tags: union(defaultTags, gcFuntionAppsASP01.customTags)
-  sku: {    
-    name: gcFuntionAppsASP01.sku.name
-    tier: gcFuntionAppsASP01.sku.tier
-    size: gcFuntionAppsASP01.sku.size
-    family: gcFuntionAppsASP01.sku.family
-    capacity: gcFuntionAppsASP01.sku.capacity    
-  }
-  properties: {
-    perSiteScaling: false
-    maximumElasticWorkerCount: 10
-    isSpot: false
-    reserved: false
-    isXenon: false
-    hyperV: false
-    targetWorkerCount: 0
-    targetWorkerSizeId: 0
   }
 }
