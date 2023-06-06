@@ -14,7 +14,6 @@ param appInsightsName string
 param environment string
 param customTags object
 param privateEndpoint object
-param keyvaultAccessPolicy array
 param location string = resourceGroup().location
 param deploymentDate string = utcNow('yyyyMMdd-HHmmss')
 param createdDate string = utcNow('yyyy-MM-dd')
@@ -50,7 +49,6 @@ module webApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web/webA
     defaultTags: defaultTags
     customTags: customTags
     privateEndpoint: privateEndpoint
-    keyvaultAccessPolicy: keyvaultAccessPolicy
     location: location
     deploymentDate: deploymentDate
   }
