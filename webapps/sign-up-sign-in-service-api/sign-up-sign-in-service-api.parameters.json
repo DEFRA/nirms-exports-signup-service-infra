@@ -59,14 +59,6 @@
         },
         "secretName": "GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}1002-OAuth-ClientId"
       }
-    },
-    "keyvaultAccessPolicy": {
-      "value": [
-        {
-          "name": "#{{ Environment.Name }}TRD#{{ nc-function-infrastructure }}#{{ nc-resource-keyvault }}1001",
-          "resourceGroupName": "#{{ Environment.Name }}TRD#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}1001"
-        }
-      ]
     }
   }
 }
