@@ -51,6 +51,15 @@
         },
         "environment": {
             "value": "#{{ Environment.Name }}"
-        }
+        },
+        "appConfigurationRoleAssignments": { 
+            "value": [
+                {
+                "roleId": "516239f1-63e1-4d78-a4de-a74fb236a071",
+                "resourceGroupName": "#{{ Environment.Name }}TRD#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01",
+                "resourceName": "#{{ Environment.Name }}TRD#{{ nc-function-infrastructure }}#{{ nc-resource-appconfiguration }}#{{ nc-region-id }}01"
+                }
+            ]
+            }
     }
 }

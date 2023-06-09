@@ -14,6 +14,7 @@ param appInsightsName string
 param environment string
 param customTags object
 param privateEndpoint object
+param appConfigurationRoleAssignments array
 param location string = resourceGroup().location
 param deploymentDate string = utcNow('yyyyMMdd-HHmmss')
 param createdDate string = utcNow('yyyy-MM-dd')
@@ -28,6 +29,8 @@ var defaultTags = {
   Tier: 'WEB'
   Location: location
 }
+
+var configurationServerUri = !empty(appConfigurationRoleAssignments) && contains(first(appConfigurationRoleAssignments),'resourceName')?'https://${first(appConfigurationRoleAssignments).resourceName}.azconfig.io': ''
 
 module webApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web/webApps.bicep' = {
   name: deploymentName
@@ -48,8 +51,12 @@ module webApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web/webA
     environment: environment
     defaultTags: defaultTags
     customTags: customTags
+    customAppSettings: {
+      'ConfigurationServer:Uri': configurationServerUri      
+    }
     privateEndpoint: privateEndpoint
     location: location
     deploymentDate: deploymentDate
+    appConfigurationRoleAssignments: appConfigurationRoleAssignments
   }
 }
