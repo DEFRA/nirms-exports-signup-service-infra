@@ -14,6 +14,7 @@ param appInsightsName string
 param environment string
 param customTags object
 param privateEndpoint object
+param keyvaultAccessPolicy array
 param appConfigurationRoleAssignments array
 param location string = resourceGroup().location
 param deploymentDate string = utcNow('yyyyMMdd-HHmmss')
@@ -55,6 +56,7 @@ module webApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web/webA
       'ConfigurationServer:Uri': configurationServerUri      
     }
     privateEndpoint: privateEndpoint
+    keyvaultAccessPolicy: keyvaultAccessPolicy
     location: location
     deploymentDate: deploymentDate
     appConfigurationRoleAssignments: appConfigurationRoleAssignments

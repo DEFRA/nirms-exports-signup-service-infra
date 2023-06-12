@@ -16,6 +16,7 @@ param appConfigurationRoleAssignments array
 param location string = resourceGroup().location
 param deploymentDate string = utcNow('yyyyMMdd-HHmmss')
 param createdDate string = utcNow('yyyy-MM-dd')
+param keyvaultAccessPolicy array
 
 var deploymentName = 'sign-up-sign-in-service-ui-${deploymentDate}'
 var defaultTags = {
@@ -57,5 +58,6 @@ module webApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web/webA
     appConfigurationRoleAssignments: appConfigurationRoleAssignments
     location: location
     deploymentDate: deploymentDate
+    keyvaultAccessPolicy: keyvaultAccessPolicy
   }
 }
