@@ -43,6 +43,14 @@ extends:
         type: 'bicep'
         runPrivateEndpointDns: true
         resourceName: '$(Environment.Name)GC$(nc-function-web)$(nc-resource-webapp)$(nc-region-id)01'
+        postDeployScriptsList:
+          - displayName: 'Assign App Roles to Managed Identity'
+            scriptRepo: trdPipelineCommon
+            scriptPath: '/templates/powershell/appregs/AssignAppRolesToApp.ps1'
+            scriptArguments: '-AppName $(Environment.Name)GC$(nc-function-web)$(nc-resource-webapp)$(nc-region-id)01 -BackendAppName $(Environment.Name)TRA$(nc-function-infrastructure)$(nc-resource-apimanagement)1002-Backend-ApimOAuth -RolesToAssinToApp $(roleTradeRemosRead),$(roleTradeRemosUpdate) -Clientid $(AdoSpClientId) -ClientSecret $(AdoSpClientSecret) -TenantId $(TenantId)'
     forceDevDeploy: ${{ parameters.forceDevDeploy }}
     projectName: TRS    
     deployToSecondary: ${{ parameters.deployToSecondary}}
+    additionalVariablesFileList:
+      - /vars/claims/jwt-claims-internal.yaml@trdPipelineCommon
+    keyVaultName: '$(Environment.Name)trdinfkv1001'
