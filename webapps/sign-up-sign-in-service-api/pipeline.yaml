@@ -53,7 +53,7 @@ extends:
               -RolesToAssinToApp $(roleTradeAddressRead),$(roleTradeAddressWrite) 
               -Clientid $(AdoSpClientId) 
               -ClientSecret $(AdoSpClientSecret) 
-              -TenantId $(TenantId)'
+              -TenantId $(TenantId)
             
     forceDevDeploy: ${{ parameters.forceDevDeploy }}
     deployToSecondary: ${{ parameters.deployToSecondary}}
