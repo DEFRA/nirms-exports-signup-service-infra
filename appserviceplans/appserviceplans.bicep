@@ -5,8 +5,8 @@ param gcBackendAppsASP01 object
 param location string = resourceGroup().location
 
 var defaultTags = {
-  ServiceCode: 'TRS'
-  ServiceName: 'TRS'
+  ServiceCode: 'REM'
+  ServiceName: 'REM'
   ServiceType: 'LOB'
   CreatedDate: createdDate
   Environment: environment
