@@ -42,7 +42,7 @@ extends:
         scope: 'Resource Group'
         type: 'bicep'
     forceDevDeploy: ${{ parameters.forceDevDeploy }}
-    projectName: TRS    
+    projectName: REM    
     deployToSecondary: ${{ parameters.deployToSecondary}}
     additionalVariablesFileList:
       - vars/asp-{environment}.yaml@self

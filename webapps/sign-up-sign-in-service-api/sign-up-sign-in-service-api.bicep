@@ -22,8 +22,8 @@ param createdDate string = utcNow('yyyy-MM-dd')
 
 var deploymentName = 'sign-up-sign-in-service-api-${deploymentDate}'
 var defaultTags = {
-  ServiceCode: 'TRS'
-  ServiceName: 'TRS'
+  ServiceCode: 'REM'
+  ServiceName: 'REM'
   ServiceType: 'LOB'
   CreatedDate: createdDate
   Environment: environment
