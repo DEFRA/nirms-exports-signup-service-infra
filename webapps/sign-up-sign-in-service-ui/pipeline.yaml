@@ -49,7 +49,7 @@ extends:
             scriptPath: '/templates/powershell/appregs/AssignAppRolesToApp.ps1'
             scriptArguments: '-AppName $(Environment.Name)GC$(nc-function-web)$(nc-resource-webapp)$(nc-region-id)01 -BackendAppName $(Environment.Name)TRA$(nc-function-infrastructure)$(nc-resource-apimanagement)1002-Backend-ApimOAuth -RolesToAssinToApp $(roleTradeRemosRead),$(roleTradeRemosUpdate) -Clientid $(AdoSpClientId) -ClientSecret $(AdoSpClientSecret) -TenantId $(TenantId)'
     forceDevDeploy: ${{ parameters.forceDevDeploy }}
-    projectName: TRS    
+    projectName: REM    
     deployToSecondary: ${{ parameters.deployToSecondary}}
     additionalVariablesFileList:
       - /vars/claims/jwt-claims-internal.yaml@trdPipelineCommon

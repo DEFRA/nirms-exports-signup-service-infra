@@ -20,8 +20,8 @@ param keyvaultAccessPolicy array
 
 var deploymentName = 'sign-up-sign-in-service-ui-${deploymentDate}'
 var defaultTags = {
-  ServiceCode: 'TRS'
-  ServiceName: 'TRS'
+  ServiceCode: 'REM'
+  ServiceName: 'REM'
   ServiceType: 'LOB'
   CreatedDate: createdDate
   Environment: environment
