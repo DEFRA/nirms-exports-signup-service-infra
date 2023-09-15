@@ -16,6 +16,8 @@ param functionApplogStorageResourceGroup string
 param deploymentDate string = utcNow('yyyyMMdd-HHmmss')
 param buildAgentIPAddress string
 param privateEndpoint object
+param serviceBusRoleAssignmentsPrimary object
+param serviceBusRoleAssignmentsSecondary object
 
 var deploymentName = 'gc-application-service-function-app-${deploymentDate}'
 var defaultTags = {
@@ -51,4 +53,31 @@ module functionApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web
     functionExtensionVersion:'~4'
     privateEndpoint: privateEndpoint
   }
+}
+
+module roleAssignmentsServiceBusPrimary '../../../Defra.Infrastructure.Common/templates/Microsoft.Authorization/serviceBusRoleAssignments.bicep' =  {
+  name: 'ServiceBusPrimary-${deploymentDate}'
+  params: {
+    roleAssignment: serviceBusRoleAssignmentsPrimary
+    appPrincipalId: priPrincipleID
+    appName: functionAppName
+    appResourceGroupName: resourceGroup().name
+  }
+  dependsOn: [
+   functionApp
+  ]
+}
+
+module roleAssignmentsServiceBusSecondary '../../../Defra.Infrastructure.Common/templates/Microsoft.Authorization/serviceBusRoleAssignments.bicep' = if (deployToSecondaryRegion){
+ name: 'ServiceBusPrimary-${deploymentDate}'
+ scope: resourceGroup(serviceBusRoleAssignmentsSecondary.resourceGroupName)
+ params: {
+   roleAssignment: serviceBusRoleAssignmentsSecondary
+   appPrincipalId: secPrincipleID
+   appName: functionAppName
+   appResourceGroupName: resourceGroup().name
+ }
+ dependsOn: [
+   functionApp
+ ]
 }
