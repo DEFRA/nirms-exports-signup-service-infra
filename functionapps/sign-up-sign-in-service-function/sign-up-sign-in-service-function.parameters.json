@@ -72,6 +72,9 @@
           "resourceName": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-servicebus }}#{{ nc-secondary-region-id }}01"
         }
       
+    },
+    "secondaryRegionEnvironment": {
+      "value": "#{{ secondaryRegionEnvironment }}"
     }
   }
 }
