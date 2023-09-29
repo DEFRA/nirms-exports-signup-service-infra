@@ -20,6 +20,9 @@ param serviceBusRoleAssignmentsPrimary object
 param serviceBusRoleAssignmentsSecondary object
 
 var deploymentName = 'gc-application-service-function-app-${deploymentDate}'
+var secPrincipleID = reference(resourceId(resourceGroup().name,'Microsoft.Web/sites', functionAppName), '2021-01-15', 'full').identity.principalId
+var priPrincipleID = reference(resourceId('Microsoft.Web/sites', functionAppName), '2021-01-15', 'full').identity.principalId
+var deployToSecondaryRegion = ((toLower(secondaryRegionEnvironment) != 'none') && ((toLower(environment) == 'prd') || (secondaryRegionEnvironment =~ environment)))
 var defaultTags = {
   ServiceCode: 'TRE'
   ServiceName: 'TRE'
