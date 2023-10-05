@@ -61,6 +61,7 @@ module functionApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web
 
 module roleAssignmentsServiceBusPrimary '../../../Defra.Infrastructure.Common/templates/Microsoft.Authorization/serviceBusRoleAssignments.bicep' =  {
   name: 'ServiceBusPrimary-${deploymentDate}'
+  scope: resourceGroup(serviceBusRoleAssignmentsPrimary.resourceGroupName)
   params: {
     roleAssignment: serviceBusRoleAssignmentsPrimary
     appPrincipalId: priPrincipleID
