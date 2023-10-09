@@ -18,6 +18,8 @@ param buildAgentIPAddress string
 param privateEndpoint object
 param serviceBusRoleAssignmentsPrimary object
 param serviceBusRoleAssignmentsSecondary object
+param serviceBusRoleAssignmentsPolicyPrimary object
+param serviceBusRoleAssignmentsPolicySecondary object
 param secondaryRegionEnvironment string
 
 var deploymentName = 'gc-application-service-function-app-${deploymentDate}'
@@ -86,3 +88,31 @@ module roleAssignmentsServiceBusSecondary '../../../Defra.Infrastructure.Common/
    functionApp
  ]
 }
+
+module roleAssignmentsServiceBusPolicyPrimary '../../../Defra.Infrastructure.Common/templates/Microsoft.Authorization/serviceBusRoleAssignments.bicep' = if (deployToSecondaryRegion){
+  name: 'ServiceBusPrimary-${deploymentDate}'
+  scope: resourceGroup(serviceBusRoleAssignmentsPolicyPrimary.resourceGroupName)
+  params: {
+    roleAssignment: serviceBusRoleAssignmentsPolicyPrimary
+    appPrincipalId: secPrincipleID
+    appName: functionAppName
+    appResourceGroupName: resourceGroup().name
+  }
+  dependsOn: [
+    functionApp
+  ]
+ }
+
+ module roleAssignmentsServiceBusPolicySecondary '../../../Defra.Infrastructure.Common/templates/Microsoft.Authorization/serviceBusRoleAssignments.bicep' = if (deployToSecondaryRegion){
+  name: 'ServiceBusPrimary-${deploymentDate}'
+  scope: resourceGroup(serviceBusRoleAssignmentsPolicySecondary.resourceGroupName)
+  params: {
+    roleAssignment: serviceBusRoleAssignmentsPolicySecondary
+    appPrincipalId: secPrincipleID
+    appName: functionAppName
+    appResourceGroupName: resourceGroup().name
+  }
+  dependsOn: [
+    functionApp
+  ]
+ }
