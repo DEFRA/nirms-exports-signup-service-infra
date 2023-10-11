@@ -25,8 +25,8 @@ var secPrincipleID = reference(resourceId(resourceGroup().name,'Microsoft.Web/si
 var priPrincipleID = reference(resourceId('Microsoft.Web/sites', functionAppName), '2021-01-15', 'full').identity.principalId
 var deployToSecondaryRegion = ((toLower(secondaryRegionEnvironment) != 'none') && ((toLower(environment) == 'prd') || (secondaryRegionEnvironment =~ environment)))
 var defaultTags = {
-  ServiceCode: 'TRE'
-  ServiceName: 'TRE'
+  ServiceCode: 'REM'
+  ServiceName: 'REM'
   ServiceType: 'LOB'
   CreatedDate: createdDate
   Environment: environment
