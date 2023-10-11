@@ -16,11 +16,17 @@ param functionApplogStorageResourceGroup string
 param deploymentDate string = utcNow('yyyyMMdd-HHmmss')
 param buildAgentIPAddress string
 param privateEndpoint object
+param serviceBusRoleAssignmentsPrimary object
+param serviceBusRoleAssignmentsSecondary object
+param secondaryRegionEnvironment string
 
 var deploymentName = 'gc-application-service-function-app-${deploymentDate}'
+var secPrincipleID = reference(resourceId(resourceGroup().name,'Microsoft.Web/sites', functionAppName), '2021-01-15', 'full').identity.principalId
+var priPrincipleID = reference(resourceId('Microsoft.Web/sites', functionAppName), '2021-01-15', 'full').identity.principalId
+var deployToSecondaryRegion = ((toLower(secondaryRegionEnvironment) != 'none') && ((toLower(environment) == 'prd') || (secondaryRegionEnvironment =~ environment)))
 var defaultTags = {
-  ServiceCode: 'TRE'
-  ServiceName: 'TRE'
+  ServiceCode: 'REM'
+  ServiceName: 'REM'
   ServiceType: 'LOB'
   CreatedDate: createdDate
   Environment: environment
@@ -52,3 +58,32 @@ module functionApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web
     privateEndpoint: privateEndpoint
   }
 }
+
+module roleAssignmentsServiceBusPrimary '../../../Defra.Infrastructure.Common/templates/Microsoft.Authorization/serviceBusRoleAssignments.bicep' =  {
+  name: 'ServiceBusPrimary-${deploymentDate}'
+  scope: resourceGroup(serviceBusRoleAssignmentsPrimary.resourceGroupName)
+  params: {
+    roleAssignment: serviceBusRoleAssignmentsPrimary
+    appPrincipalId: priPrincipleID
+    appName: functionAppName
+    appResourceGroupName: resourceGroup().name
+  }
+  dependsOn: [
+   functionApp
+  ]
+}
+
+module roleAssignmentsServiceBusSecondary '../../../Defra.Infrastructure.Common/templates/Microsoft.Authorization/serviceBusRoleAssignments.bicep' = if (deployToSecondaryRegion){
+ name: 'ServiceBusPrimary-${deploymentDate}'
+ scope: resourceGroup(serviceBusRoleAssignmentsSecondary.resourceGroupName)
+ params: {
+   roleAssignment: serviceBusRoleAssignmentsSecondary
+   appPrincipalId: secPrincipleID
+   appName: functionAppName
+   appResourceGroupName: resourceGroup().name
+ }
+ dependsOn: [
+   functionApp
+ ]
+}
+
