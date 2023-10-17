@@ -75,7 +75,7 @@ module roleAssignmentsServiceBusPrimary '../../../Defra.Infrastructure.Common/te
   params: {
     roleAssignment: serviceBusRoleAssignmentsPrimary
     appPrincipalId: priPrincipleID
-    appName: functionAppName
+    appName: webAppName
     appResourceGroupName: resourceGroup().name
   }
   dependsOn: [
@@ -89,7 +89,7 @@ module roleAssignmentsServiceBusSecondary '../../../Defra.Infrastructure.Common/
   params: {
     roleAssignment: serviceBusRoleAssignmentsPrimary
     appPrincipalId: secPrincipleID
-    appName: functionAppName
+    appName: webAppName
     appResourceGroupName: resourceGroup().name
   }
   dependsOn: [
