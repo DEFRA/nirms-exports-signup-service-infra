@@ -76,6 +76,27 @@
           "resourceName": "#{{ Environment.Name }}TRD#{{ nc-function-infrastructure }}#{{ nc-resource-appconfiguration }}#{{ nc-region-id }}01"
         }
       ]
+    },
+    "serviceBusRoleAssignmentsPrimary": {
+      "value": 
+        {
+          "roleId": "090c5cfd-751d-490a-894a-3ce6f1109419",
+          "resourceGroupName": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01",
+          "resourceName": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-servicebus }}#{{ nc-region-id }}01"
+        }
+      
+    },
+    "serviceBusRoleAssignmentsSecondary": {
+      "value": 
+        {
+          "roleId": "090c5cfd-751d-490a-894a-3ce6f1109419",
+          "resourceGroupName": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-secondary-region-id }}01",
+          "resourceName": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-servicebus }}#{{ nc-secondary-region-id }}01"
+        }
+      
+    },
+    "secondaryRegionEnvironment": {
+      "value": "#{{ secondaryRegionEnvironment }}"
     }
   }
 }

@@ -19,6 +19,9 @@ param appConfigurationRoleAssignments array
 param location string = resourceGroup().location
 param deploymentDate string = utcNow('yyyyMMdd-HHmmss')
 param createdDate string = utcNow('yyyy-MM-dd')
+param serviceBusRoleAssignmentsPrimary object
+param serviceBusRoleAssignmentsSecondary object
+param secondaryRegionEnvironment string
 
 var deploymentName = 'sign-up-sign-in-service-api-${deploymentDate}'
 var defaultTags = {
@@ -32,6 +35,9 @@ var defaultTags = {
 }
 
 var configurationServerUri = !empty(appConfigurationRoleAssignments) && contains(first(appConfigurationRoleAssignments),'resourceName')?'https://${first(appConfigurationRoleAssignments).resourceName}.azconfig.io': ''
+var secPrincipleID = reference(resourceId(resourceGroup().name,'Microsoft.Web/sites', webAppName), '2021-01-15', 'full').identity.principalId
+var priPrincipleID = reference(resourceId('Microsoft.Web/sites', webAppName), '2021-01-15', 'full').identity.principalId
+var deployToSecondaryRegion = ((toLower(secondaryRegionEnvironment) != 'none') && ((toLower(environment) == 'prd') || (secondaryRegionEnvironment =~ environment)))
 
 module webApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web/webApps.bicep' = {
   name: deploymentName
@@ -62,3 +68,33 @@ module webApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web/webA
     appConfigurationRoleAssignments: appConfigurationRoleAssignments
   }
 }
+
+module roleAssignmentsServiceBusPrimary '../../../Defra.Infrastructure.Common/templates/Microsoft.Authorization/serviceBusRoleAssignments.bicep' =  {
+  name: 'ServiceBusPrimary-${deploymentDate}'
+  scope: resourceGroup(serviceBusRoleAssignmentsPrimary.resourceGroupName)
+  params: {
+    roleAssignment: serviceBusRoleAssignmentsPrimary
+    appPrincipalId: priPrincipleID
+    appName: functionAppName
+    appResourceGroupName: resourceGroup().name
+  }
+  dependsOn: [
+    webApp
+  ]
+}
+
+module roleAssignmentsServiceBusSecondary '../../../Defra.Infrastructure.Common/templates/Microsoft.Authorization/serviceBusRoleAssignments.bicep' = if (deployToSecondaryRegion) {
+  name: 'ServiceBusPrimary-${deploymentDate}'
+  scope: resourceGroup(serviceBusRoleAssignmentsPrimary.resourceGroupName)
+  params: {
+    roleAssignment: serviceBusRoleAssignmentsPrimary
+    appPrincipalId: secPrincipleID
+    appName: functionAppName
+    appResourceGroupName: resourceGroup().name
+  }
+  dependsOn: [
+    webApp
+  ]
+}
+
+
