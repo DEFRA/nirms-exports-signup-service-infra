@@ -85,9 +85,9 @@ module roleAssignmentsServiceBusPrimary '../../../Defra.Infrastructure.Common/te
 
 module roleAssignmentsServiceBusSecondary '../../../Defra.Infrastructure.Common/templates/Microsoft.Authorization/serviceBusRoleAssignments.bicep' = if (deployToSecondaryRegion) {
   name: 'ServiceBusPrimary-${deploymentDate}'
-  scope: resourceGroup(serviceBusRoleAssignmentsPrimary.resourceGroupName)
+  scope: resourceGroup(serviceBusRoleAssignmentsSecondary.resourceGroupName)
   params: {
-    roleAssignment: serviceBusRoleAssignmentsPrimary
+    roleAssignment: serviceBusRoleAssignmentsSecondary
     appPrincipalId: secPrincipleID
     appName: webAppName
     appResourceGroupName: resourceGroup().name
