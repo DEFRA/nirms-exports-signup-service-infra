@@ -19,6 +19,7 @@ param privateEndpoint object
 param serviceBusRoleAssignmentsPrimary object
 param serviceBusRoleAssignmentsSecondary object
 param secondaryRegionEnvironment string
+param appConfigurationRoleAssignments array
 
 var deploymentName = 'gc-application-service-function-app-${deploymentDate}'
 var secPrincipleID = reference(resourceId(resourceGroup().name,'Microsoft.Web/sites', functionAppName), '2021-01-15', 'full').identity.principalId
@@ -56,6 +57,7 @@ module functionApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web
     netFrameworkVersion:'v6.0'
     functionExtensionVersion:'~4'
     privateEndpoint: privateEndpoint
+    appConfigurationRoleAssignments: appConfigurationRoleAssignments
   }
 }
 
