@@ -72,6 +72,22 @@
                     "Purpose": "TRADE-GC-BACKEND-APPS-01"
                 }
             }
-        }
+        },
+        "gcFuntionAppsASP01": {
+            "value": {
+              "name": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}03",
+              "sku": {
+                "name": "EP1",
+                "tier": "ElasticPremium",
+                "size": "EP1",
+                "family": "EP",
+                "capacity": 1
+              },
+              "customTags": {
+                  "Name": "##{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}03",
+                  "Purpose": "TRADE-GC-FUNCTION-APPS-01"
+              }
+            }
+          }
     }
 }
