@@ -6,7 +6,7 @@
       "value": "#{{ Environment.Name }}"
     },
     "aspName": {
-      "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}01"
+      "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}03"
     },
     "functionAppName": {
       "value": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-functionapp }}#{{ nc-region-id }}01"
@@ -33,7 +33,7 @@
       "value": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-virtualnetwork }}#{{ nc-region-id }}01"
     },
     "vnetSubnetName": {
-      "value": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-region-id }}33"
+      "value": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-subnet }}#{{ nc-region-id }}35"
     },
     "functionApplogStorageName": {
       "value": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-storageaccount }}1003"
@@ -44,7 +44,7 @@
     "customTags": {
       "value": {
         "Name": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-functionapp }}#{{ nc-region-id }}01",
-        "Purpose": "SIGN-UP-SIGN-IN-SERVICE-FUNCTION"
+        "Purpose": "SIGN-UP-SIGN-IN-SERVICE-FUNCTION-REJECTION"
       }
     },
     "privateEndpoint": {
@@ -75,6 +75,16 @@
     },
     "secondaryRegionEnvironment": {
       "value": "#{{ secondaryRegionEnvironment }}"
+    },
+    "appConfigurationRoleAssignments": { 
+      "value": [
+        {
+          "roleId": "516239f1-63e1-4d78-a4de-a74fb236a071",
+          "resourceGroupName": "#{{ Environment.Name }}TRD#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01",
+          "resourceName": "#{{ Environment.Name }}TRD#{{ nc-function-infrastructure }}#{{ nc-resource-appconfiguration }}#{{ nc-region-id }}01"
+        }
+      ]
     }
+
   }
 }
