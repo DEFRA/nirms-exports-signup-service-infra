@@ -1,0 +1,86 @@
+name: 'V1-B$(Date:yyyyMMdd)-$(BuildID)'
+
+parameters:
+  - name: forceDeploy
+    displayName: 'Force deployment'
+    type: boolean
+    default: false
+
+  - name: configFile
+    displayName: 'Configuration File'
+    type: string
+    default: monitoring_config.json
+
+trigger: none
+
+resources:
+  repositories:
+    - repository: TRDPipelineCommon
+      name: DEFRA-TRD/Defra.TRD.Pipeline.Common
+      type: git
+      ref: master
+    - repository: PipelineCommon
+      name: DEFRA-DEVOPS-COMMON/Defra.Pipeline.Common
+      type: git
+      ref: refs/tags/Release-v4.0.0
+
+extends:
+  template: /templates/pipelines/common-scripts-deploy.yaml@PipelineCommon
+  parameters:
+    defaultServiceConnectionVariableName: azureResourceManagerConnection
+    variableFiles:
+      - /vars/common.yaml@TRDPipelineCommon
+      - /vars/{environment}.yaml@TRDPipelineCommon
+    regionalVariableFiles:
+      - /vars/regional/{environment}-{region}.yaml@TRDPipelineCommon
+    environments:
+      - name: 'dev'
+        developmentEnvironment: true
+        subscriptionId: subscriptionId
+        tenantName: tenantName
+        tenantId: tenantId
+        azureRegions:
+          isSecondaryRegionDeploymentActive: false
+          primary: NorthEurope
+        deploymentBranches:
+          - '*'
+      - name: 'tst'
+        developmentEnvironment: false
+        subscriptionId: subscriptionId
+        tenantName: tenantName
+        tenantId: tenantId
+        azureRegions:
+          isSecondaryRegionDeploymentActive: false
+          primary: NorthEurope
+        deploymentBranches:
+          - 'refs/heads/master'
+      - name: 'pre'
+        developmentEnvironment: false
+        subscriptionId: subscriptionId
+        tenantName: tenantName
+        tenantId: tenantId
+        azureRegions:
+          isSecondaryRegionDeploymentActive: false
+          primary: NorthEurope
+        deploymentBranches:
+          - 'refs/heads/master'
+      - name: 'prd'
+        developmentEnvironment: false
+        subscriptionId: subscriptionId
+        tenantName: tenantName
+        tenantId: tenantId
+        azureRegions:
+          isSecondaryRegionDeploymentActive: false
+          primary: NorthEurope
+        deploymentBranches:
+          - 'refs/heads/master'
+    scriptsList: 
+      - displayName: 'Create Azure Metric Alerts'
+        scriptPath: 'CreateMetricAlertFunctions.ps1@PipelineCommon'
+        scriptArguments: >-
+          -manifestFilePath "./monitoring/${{ parameters.configFile }}"
+        type: AzurePowerShell
+        failOnStandardError: true
+        filePathsForTransform:
+          - monitoring/${{ parameters.configFile }}
+    forceDeploy: ${{ parameters.forceDeploy }}
