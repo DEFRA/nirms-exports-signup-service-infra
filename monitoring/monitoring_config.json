@@ -1,0 +1,54 @@
+{
+    "environment": "#{{ Environment.Name }}",
+    "subscriptionId": "#{{ subscriptionId }}",
+    "secSubscriptionId": "#{{ secsubscriptionId }}",
+    "actionContext": {
+        "groupName": "NIRMS Support",
+        "groupShortName": "NIRMS",
+        "groupResourceGroup": "#{{ Environment.Name }}GC#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01"
+    },
+    "alertRecipientPolicy": {
+        "productionEnvironment": {
+            "name": "EmailPolicy",
+            "emailRecipients": [
+                "dave.macdonald@capgemini.com",
+                "europeandtradeamssupport@capgemini.com",
+                "gcchypercarealerts.uk@capgemini.com"
+            ]
+        },
+        "nonProductionEnvironment": {
+            "name": "EmailPolicy",
+            "emailRecipients": [
+                "dave.macdonald@capgemini.com"
+            ]
+        }
+    },
+    "monitoredResources": {
+        "webAppResourceGroups": [
+            "#{{ Environment.Name }}GC#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01",
+            "#{{ Environment.Name }}GC#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-secondary-region-id }}01"
+        ],
+        "webAppAlertPolicyName": "StandardWebAppPolicy",
+        "appInsights": [
+            {
+                "name": "#{{ Environment.Name }}TRDINFAI#{{ nc-region-id }}01",
+                "resourceGroup": "#{{ Environment.Name }}TRDINFRG#{{ nc-region-id }}01",
+                "cloudRoleNames": [
+                    "#{{ Environment.Name }}GCWEBAW#{{ nc-region-id }}01",
+                    "#{{ Environment.Name }}GCWEBAW#{{ nc-region-id }}02",
+                    "#{{ Environment.Name }}GCWEBAF#{{ nc-region-id }}01"
+                ]
+            },
+            {
+                "name": "#{{ Environment.Name }}TRDINFAI#{{ nc-secondary-region-id }}01",
+                "resourceGroup": "#{{ Environment.Name }}TRDINFRG#{{ nc-secondary-region-id }}01",
+                "cloudRoleNames": [
+                    "#{{ Environment.Name }}GCWEBAW#{{ nc-secondary-region-id }}01",
+                    "#{{ Environment.Name }}GCWEBAW#{{ nc-secondary-region-id }}02",
+                    "#{{ Environment.Name }}GCWEBAF#{{ nc-secondary-region-id }}01"
+                ]
+            }
+        ],
+        "appInsightsAlertPolicyName": "StandardAppInsightsAlertPolicy"
+    }
+}
