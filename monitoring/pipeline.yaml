@@ -53,7 +53,7 @@ extends:
           isSecondaryRegionDeploymentActive: false
           primary: NorthEurope
         deploymentBranches:
-          - 'refs/heads/master'
+          - 'refs/heads/main'
       - name: 'pre'
         developmentEnvironment: false
         subscriptionId: subscriptionId
@@ -63,7 +63,7 @@ extends:
           isSecondaryRegionDeploymentActive: false
           primary: NorthEurope
         deploymentBranches:
-          - 'refs/heads/master'
+          - 'refs/heads/main'
       - name: 'prd'
         developmentEnvironment: false
         subscriptionId: subscriptionId
@@ -73,7 +73,7 @@ extends:
           isSecondaryRegionDeploymentActive: false
           primary: NorthEurope
         deploymentBranches:
-          - 'refs/heads/master'
+          - 'refs/heads/main'
     scriptsList: 
       - displayName: 'Create Azure Metric Alerts'
         scriptPath: 'CreateMetricAlertFunctions.ps1@PipelineCommon'
