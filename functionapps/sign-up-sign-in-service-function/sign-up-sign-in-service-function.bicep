@@ -35,6 +35,11 @@ var defaultTags = {
   Location:location
 }
 
+var configurationServerUri = !empty(appConfigurationRoleAssignments) && contains(first(appConfigurationRoleAssignments),'resourceName')?'https://${first(appConfigurationRoleAssignments).resourceName}.azconfig.io': ''
+var customAppSettings = {
+  'ConfigurationServer:Uri': configurationServerUri
+} 
+
 module functionApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web/functionApps.bicep' = {
   name: deploymentName
   params: {
@@ -57,6 +62,7 @@ module functionApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web
     netFrameworkVersion:'v6.0'
     functionExtensionVersion:'~4'
     privateEndpoint: privateEndpoint
+    customAppSettings: customAppSettings
     appConfigurationRoleAssignments: appConfigurationRoleAssignments
   }
 }
