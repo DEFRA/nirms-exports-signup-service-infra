@@ -22,6 +22,7 @@ param secondaryRegionEnvironment string
 param environment string
 param createdDate string = utcNow('yyyy-MM-dd')
 param location string = resourceGroup().location
+param sqlServerName string
 
 var defaultTags = {
   ServiceCode: 'GC'
@@ -34,6 +35,8 @@ var defaultTags = {
 }
 
 var deployToSecondaryRegion = ((toLower(environment) == 'prd') || (secondaryRegionEnvironment =~ environment))
+var storageBlobContributor = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')
+var uniqueRoleGuid = guid(strgApplicationService01Resource::blobProperties::container.id, storageBlobContributor, sqlServer.id)
 
 resource strgApplicationService01Resource 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   name: toLower(strgApplicationService01.name)
@@ -65,6 +68,24 @@ resource strgApplicationService01Resource 'Microsoft.Storage/storageAccounts@202
       }  
     }
   }
+}
+
+resource sqlServer 'Microsoft.Sql/servers@2020-02-02-preview' existing = {
+  name: sqlServerName
+  scope: resourceGroup(resourceGroups.sqlServerRgName)
+}
+
+resource roleAssignmentsDataSync 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: uniqueRoleGuid
+  properties: {
+    roleDefinitionId: storageBlobContributor
+    principalId: sqlServer.identity.principalId
+    principalType: 'ServicePrincipal'
+  }
+  scope: strgApplicationService01Resource::blobProperties::container
+  dependsOn: [
+    strgApplicationService01Resource
+  ]
 }
 
 resource strgApplicationService01_privateEndpoints_primaryName 'Microsoft.Network/privateEndpoints@2020-11-01' = {
