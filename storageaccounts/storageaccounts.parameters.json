@@ -128,9 +128,11 @@
         "value": {
           "tradeVnetRgName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01",
           "tradeSecondaryVnetRgName": "#{{ Environment.Name }}TRD#{{ nc-function-network }}#{{ nc-resource-resourcegroup }}#{{ nc-secondary-region-id }}01",
-          "secondaryRgName": "#{{ Environment.Name }}GC#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-secondary-region-id }}01"
+          "secondaryRgName": "#{{ Environment.Name }}GC#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-secondary-region-id }}01",
+          "sqlServerRgName": "#{{ Environment.Name }}TRS#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01"
         }
       },
+      "sqlServerName": { "value": "#{{ Environment.Name }}TRS#{{ nc-function-database }}#{{ nc-resource-sqlserver }}#{{ nc-region-id }}01" },
       "privateLinkDnsZoneNameStorage": { "value": "#{{ privateLinkDnsZoneNameStorageBlob }}" },
       "privateDnsResourceGroups": {
         "value": {
