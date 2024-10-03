@@ -45,7 +45,7 @@ module webApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web/webA
     webAppName: webAppName
     webAppURLPrefix: webAppURLPrefix
     webAppDomainSuffix: webAppDomainSuffix
-    netFrameworkVersion: 'v6.0'
+    netFrameworkVersion: 'v8.0'
     aspName: aspName
     aspClientId: aspClientId
     vnetResourceGroup: vnetResourceGroup
