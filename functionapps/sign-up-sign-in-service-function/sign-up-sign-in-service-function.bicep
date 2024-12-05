@@ -59,7 +59,7 @@ module functionApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web
     appInsightsResourceGroup:appInsightsResourceGroup
     buildAgentIPAddress:buildAgentIPAddress
     environment:environment
-    netFrameworkVersion:'v6.0'
+    netFrameworkVersion:'v8.0'
     functionExtensionVersion:'~4'
     privateEndpoint: privateEndpoint
     customAppSettings: customAppSettings
