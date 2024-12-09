@@ -37,7 +37,7 @@ var defaultTags = {
 
 var configurationServerUri = !empty(appConfigurationRoleAssignments) && contains(first(appConfigurationRoleAssignments),'resourceName')?'https://${first(appConfigurationRoleAssignments).resourceName}.azconfig.io': ''
 var customAppSettings = {
-  'ConfigurationServer:Uri': configurationServerUri,
+  'ConfigurationServer:Uri': configurationServerUri
   'FUNCTIONS_INPROC_NET8_ENABLED' : 1
 } 
 
