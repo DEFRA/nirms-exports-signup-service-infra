@@ -38,6 +38,7 @@ var defaultTags = {
 var configurationServerUri = !empty(appConfigurationRoleAssignments) && contains(first(appConfigurationRoleAssignments),'resourceName')?'https://${first(appConfigurationRoleAssignments).resourceName}.azconfig.io': ''
 var customAppSettings = {
   'ConfigurationServer:Uri': configurationServerUri
+  'FUNCTIONS_INPROC_NET8_ENABLED' : 1
 } 
 
 module functionApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web/functionApps.bicep' = {
