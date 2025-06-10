@@ -11,15 +11,13 @@
         "productionEnvironment": {
             "name": "EmailPolicy",
             "emailRecipients": [
-                "dave.macdonald@capgemini.com",
-                "europeandtradeamssupport@capgemini.com",
-                "gcchypercarealerts.uk@capgemini.com"
+                "placeholder"
             ]
         },
         "nonProductionEnvironment": {
             "name": "EmailPolicy",
             "emailRecipients": [
-                "dave.macdonald@capgemini.com"
+                "placeholder"
             ]
         }
     },
