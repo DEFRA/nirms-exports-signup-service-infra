@@ -1,0 +1,4 @@
+variables:
+  mincapacity: 1
+  maxcapacity: 2
+  defaultcapacity: 1
