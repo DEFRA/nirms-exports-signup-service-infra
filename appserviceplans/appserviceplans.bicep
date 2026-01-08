@@ -15,7 +15,7 @@ var defaultTags = {
   Location: location
 }
 
-resource gcServiceASPResource 'Microsoft.Web/serverfarms@2020-06-01' = {
+resource gcServiceASPResource 'Microsoft.Web/serverfarms@2023-12-01' = {
   name: gcUIASP.name
   location: location
   tags: union(defaultTags, gcUIASP.customTags)
@@ -34,107 +34,12 @@ resource gcServiceASPResource 'Microsoft.Web/serverfarms@2020-06-01' = {
     hyperV: false
     targetWorkerCount: 0
     targetWorkerSizeId: 0
+    maximumElasticWorkerCount: gcUIASP.autoscaleSettings.maxcapacity
+    elasticScaleEnabled: true
   }
 }
 
-resource gcUIASP_name_setting 'Microsoft.Insights/autoscalesettings@2015-04-01' = {
-  name: '${gcUIASP.name}-setting'
-  location: location
-  properties: {
-    profiles: [
-      {
-        name: 'DefaultAutoscaleProfile'
-        capacity: {
-          minimum: gcUIASP.autoscaleSettings.mincapacity
-          maximum: gcUIASP.autoscaleSettings.maxcapacity
-          default: gcUIASP.autoscaleSettings.defaultcapacity
-        }
-        rules: [
-          {
-            metricTrigger: {
-              metricName: gcUIASP.autoscaleSettings.metrics[0].name
-              metricNamespace: ''
-              metricResourceUri: gcServiceASPResource.id
-              timeGrain: 'PT1M'
-              statistic: 'Average'
-              timeWindow: 'PT5M'
-              timeAggregation: 'Average'
-              operator: 'GreaterThan'
-              threshold: gcUIASP.autoscaleSettings.metrics[0].thresholdToScaleOut
-            }
-            scaleAction: {
-              direction: 'Increase'
-              type: 'ChangeCount'
-              value: '1'
-              cooldown: 'PT1M'
-            }
-          }
-          {
-            metricTrigger: {
-              metricName: gcUIASP.autoscaleSettings.metrics[1].name
-              metricNamespace: ''
-              metricResourceUri: gcServiceASPResource.id
-              timeGrain: 'PT1M'
-              statistic: 'Average'
-              timeWindow: 'PT5M'
-              timeAggregation: 'Average'
-              operator: 'GreaterThan'
-              threshold: gcUIASP.autoscaleSettings.metrics[1].thresholdToScaleOut
-            }
-            scaleAction: {
-              direction: 'Increase'
-              type: 'ChangeCount'
-              value: '1'
-              cooldown: 'PT1M'
-            }
-          }
-          {
-            metricTrigger: {
-              metricName: gcUIASP.autoscaleSettings.metrics[0].name
-              metricNamespace: ''
-              metricResourceUri: gcServiceASPResource.id
-              timeGrain: 'PT1M'
-              statistic: 'Average'
-              timeWindow: 'PT5M'
-              timeAggregation: 'Average'
-              operator: 'LessThan'
-              threshold: gcUIASP.autoscaleSettings.metrics[0].thresholdToScaleIn
-            }
-            scaleAction: {
-              direction: 'Decrease'
-              type: 'ChangeCount'
-              value: '1'
-              cooldown: 'PT5M'
-            }
-          }
-          {
-            metricTrigger: {
-              metricName: gcUIASP.autoscaleSettings.metrics[1].name
-              metricNamespace: ''
-              metricResourceUri: gcServiceASPResource.id
-              timeGrain: 'PT1M'
-              statistic: 'Average'
-              timeWindow: 'PT5M'
-              timeAggregation: 'Average'
-              operator: 'LessThan'
-              threshold: gcUIASP.autoscaleSettings.metrics[1].thresholdToScaleIn
-            }
-            scaleAction: {
-              direction: 'Decrease'
-              type: 'ChangeCount'
-              value: '1'
-              cooldown: 'PT5M'
-            }
-          }
-        ]
-      }
-    ]
-    enabled: gcUIASP.autoscaleSettings.autoscaleEnabled
-    targetResourceUri: gcServiceASPResource.id
-  }
-}
-
-resource gcBackendAppsASP01Resource 'Microsoft.Web/serverfarms@2020-06-01' = {
+resource gcBackendAppsASP01Resource 'Microsoft.Web/serverfarms@2023-12-01' = {
   name: gcBackendAppsASP01.name
   location: location
   tags: union(defaultTags, gcBackendAppsASP01.customTags)
@@ -153,107 +58,11 @@ resource gcBackendAppsASP01Resource 'Microsoft.Web/serverfarms@2020-06-01' = {
     hyperV: false
     targetWorkerCount: 0
     targetWorkerSizeId: 0
+    maximumElasticWorkerCount: gcBackendAppsASP01.autoscaleSettings.maxcapacity
+    elasticScaleEnabled: true
   }
 }
-
-resource gcBackendAppsASP01_name_setting 'Microsoft.Insights/autoscalesettings@2015-04-01' = {
-  name: '${gcBackendAppsASP01.name}-setting'
-  location: location
-  properties: {
-    profiles: [
-      {
-        name: 'DefaultAutoscaleProfile'
-        capacity: {
-          minimum: gcBackendAppsASP01.autoscaleSettings.mincapacity
-          maximum: gcBackendAppsASP01.autoscaleSettings.maxcapacity
-          default: gcBackendAppsASP01.autoscaleSettings.defaultcapacity
-        }
-        rules: [
-          {
-            metricTrigger: {
-              metricName: gcBackendAppsASP01.autoscaleSettings.metrics[0].name
-              metricNamespace: ''
-              metricResourceUri: gcBackendAppsASP01Resource.id
-              timeGrain: 'PT1M'
-              statistic: 'Average'
-              timeWindow: 'PT5M'
-              timeAggregation: 'Average'
-              operator: 'GreaterThan'
-              threshold: gcBackendAppsASP01.autoscaleSettings.metrics[0].thresholdToScaleOut
-            }
-            scaleAction: {
-              direction: 'Increase'
-              type: 'ChangeCount'
-              value: '1'
-              cooldown: 'PT1M'
-            }
-          }
-          {
-            metricTrigger: {
-              metricName: gcBackendAppsASP01.autoscaleSettings.metrics[1].name
-              metricNamespace: ''
-              metricResourceUri: gcBackendAppsASP01Resource.id
-              timeGrain: 'PT1M'
-              statistic: 'Average'
-              timeWindow: 'PT5M'
-              timeAggregation: 'Average'
-              operator: 'GreaterThan'
-              threshold: gcBackendAppsASP01.autoscaleSettings.metrics[1].thresholdToScaleOut
-            }
-            scaleAction: {
-              direction: 'Increase'
-              type: 'ChangeCount'
-              value: '1'
-              cooldown: 'PT1M'
-            }
-          }
-          {
-            metricTrigger: {
-              metricName: gcBackendAppsASP01.autoscaleSettings.metrics[0].name
-              metricNamespace: ''
-              metricResourceUri: gcBackendAppsASP01Resource.id
-              timeGrain: 'PT1M'
-              statistic: 'Average'
-              timeWindow: 'PT5M'
-              timeAggregation: 'Average'
-              operator: 'LessThan'
-              threshold: gcBackendAppsASP01.autoscaleSettings.metrics[0].thresholdToScaleIn
-            }
-            scaleAction: {
-              direction: 'Decrease'
-              type: 'ChangeCount'
-              value: '1'
-              cooldown: 'PT5M'
-            }
-          }
-          {
-            metricTrigger: {
-              metricName: gcBackendAppsASP01.autoscaleSettings.metrics[1].name
-              metricNamespace: ''
-              metricResourceUri: gcBackendAppsASP01Resource.id
-              timeGrain: 'PT1M'
-              statistic: 'Average'
-              timeWindow: 'PT5M'
-              timeAggregation: 'Average'
-              operator: 'LessThan'
-              threshold: gcBackendAppsASP01.autoscaleSettings.metrics[1].thresholdToScaleIn
-            }
-            scaleAction: {
-              direction: 'Decrease'
-              type: 'ChangeCount'
-              value: '1'
-              cooldown: 'PT5M'
-            }
-          }
-        ]
-      }
-    ]
-    enabled: gcBackendAppsASP01.autoscaleSettings.autoscaleEnabled
-    targetResourceUri: gcBackendAppsASP01Resource.id
-  }
-
-}
-resource gcFuntionAppsASP01Resource 'Microsoft.Web/serverfarms@2020-06-01' = {
+resource gcFuntionAppsASP01Resource 'Microsoft.Web/serverfarms@2023-12-01' = {
   name: gcFuntionAppsASP01.name
   location: location
   tags: union(defaultTags, gcFuntionAppsASP01.customTags)
@@ -273,5 +82,6 @@ resource gcFuntionAppsASP01Resource 'Microsoft.Web/serverfarms@2020-06-01' = {
     hyperV: false
     targetWorkerCount: 0
     targetWorkerSizeId: 0
+    elasticScaleEnabled: true
   }
 }

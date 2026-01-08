@@ -13,25 +13,10 @@
                     "tier": "PremiumV3",
                     "size": "P1v3",
                     "family": "Pv3",
-                    "capacity": 3
+                    "capacity": "#{{ defaultcapacity }}"
                 },
                 "autoscaleSettings": {
-                    "autoscaleEnabled": "true",
-                    "mincapacity": "#{{ minCapacity }}",
-                    "maxcapacity": "#{{ maxcapacity }}",
-                    "defaultcapacity": "#{{ defaultcapacity }}",
-                    "metrics": [
-                        {
-                            "name": "CpuPercentage",
-                            "thresholdToScaleOut": "70",
-                            "thresholdToScaleIn": "50"
-                        },
-                        {
-                            "name": "MemoryPercentage",
-                            "thresholdToScaleOut": "80",
-                            "thresholdToScaleIn": "50"
-                        }
-                    ]
+                    "maxcapacity": "#{{ maxcapacity }}"
                 },
                 "customTags": {
                     "Name": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}01",
@@ -47,25 +32,10 @@
                     "tier": "PremiumV3",
                     "size": "P1v3",
                     "family": "Pv3",
-                    "capacity": 3
+                    "capacity": "#{{ defaultcapacity }}"
                 },
                 "autoscaleSettings": {
-                    "autoscaleEnabled": "true",
-                    "mincapacity": "#{{ minCapacity }}",
-                    "maxcapacity": "#{{ maxcapacity }}",
-                    "defaultcapacity": "#{{ defaultcapacity }}",
-                    "metrics": [
-                        {
-                            "name": "CpuPercentage",
-                            "thresholdToScaleOut": "70",
-                            "thresholdToScaleIn": "50"
-                        },
-                        {
-                            "name": "MemoryPercentage",
-                            "thresholdToScaleOut": "80",
-                            "thresholdToScaleIn": "50"
-                        }
-                    ]
+                    "maxcapacity": "#{{ maxcapacity }}"
                 },
                 "customTags": {
                     "Name": "#{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}02",
@@ -81,7 +51,7 @@
                 "tier": "ElasticPremium",
                 "size": "EP1",
                 "family": "EP",
-                "capacity": 1
+                "capacity": "#{{ defaultcapacity }}"
               },
               "customTags": {
                   "Name": "##{{ Environment.Name }}GC#{{ nc-function-web }}#{{ nc-resource-appserviceplan }}#{{ nc-region-id }}03",
