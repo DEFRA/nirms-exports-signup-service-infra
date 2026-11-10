@@ -20,6 +20,9 @@ param serviceBusRoleAssignmentsPrimary object
 param serviceBusRoleAssignmentsSecondary object
 param secondaryRegionEnvironment string
 param appConfigurationRoleAssignments array
+param privateLinkDnsZoneNameFunctionApp string
+param privateLinkDnsZoneNameFunctionAppScm string
+param privateDnsResourceGroups object
 
 var deploymentName = 'gc-application-service-function-app-${deploymentDate}'
 var secPrincipleID = reference(resourceId(resourceGroup().name,'Microsoft.Web/sites', functionAppName), '2021-01-15', 'full').identity.principalId
@@ -95,4 +98,19 @@ module roleAssignmentsServiceBusSecondary '../../../Defra.Infrastructure.Common/
    functionApp
  ]
 }
+
+output privateEndpointDNSRecords array = [
+  {
+    zone: privateLinkDnsZoneNameFunctionApp
+    record: toLower(functionAppName)
+    resourceGroup: privateDnsResourceGroups.primary
+    id: resourceId('Microsoft.Network/privateEndpoints', privateEndpoint.name)
+  }
+  {
+    zone: privateLinkDnsZoneNameFunctionAppScm
+    record: toLower(functionAppName)
+    resourceGroup: privateDnsResourceGroups.primary
+    id: resourceId('Microsoft.Network/privateEndpoints', privateEndpoint.name)
+  }
+]
 
