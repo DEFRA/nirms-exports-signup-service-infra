@@ -41,10 +41,20 @@ extends:
         resourceGroupName: '$(Environment.Name)GC$(nc-function-infrastructure)$(nc-resource-resourcegroup)$(nc-region-id)01'
         scope: 'Resource Group'
         type: 'bicep'
-        runPrivateEndpointDns: true
         resourceName: '$(Environment.Name)GC$(nc-function-web)$(nc-resource-functionapp)$(nc-region-id)01'
     forceDevDeploy: ${{ parameters.forceDevDeploy }}
     deployToSecondary: ${{ parameters.deployToSecondary }}
     projectName: TRE
     keyVaultName: '$(Environment.Name)trdinfkv1001'
+
+  postDeployScriptsList: 
+  - displayName: 'Resolve Private Endpoint IPs'
+    scriptRepo: trdPipelineCommon
+    scriptPath: '/templates/powershell/private-link/resolve-endpoint-ips.ps1'
+    scriptArguments: -TemplateOutput '$(azureDeploymentOutputs)' 
+  - displayName: 'Set Private Endpoint DNS'
+    scriptRepo: trdPipelineCommon
+    scriptPath: '/templates/powershell/private-link/private-endpoint-dns.ps1'
+    scriptArguments: -TemplateOutput '$(templateOutputWithIPs)'
+    serviceConnectionVariableName: 'privateLinkDnsServiceConnection'
     
