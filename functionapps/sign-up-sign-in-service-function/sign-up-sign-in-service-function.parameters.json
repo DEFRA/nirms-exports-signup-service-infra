@@ -73,6 +73,18 @@
         }
       
     },
+    "privateLinkDnsZoneNameFunctionApp": {
+      "value": "#{{ privateLinkDnsZoneNameFunctionApp }}"
+    },
+    "privateLinkDnsZoneNameFunctionAppScm": {
+      "value": "#{{ privateLinkDnsZoneNameFunctionAppScm }}"
+    },
+    "privateDnsResourceGroups": {
+      "value": {
+        "primary": "#{{ privateLinkDnsResourceGroup }}",
+        "secondary": "#{{ privateLinkDnsResourceGroupSecondary }}"
+      }
+    },
     "secondaryRegionEnvironment": {
       "value": "#{{ secondaryRegionEnvironment }}"
     },
