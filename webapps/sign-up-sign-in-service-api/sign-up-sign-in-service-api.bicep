@@ -22,6 +22,9 @@ param createdDate string = utcNow('yyyy-MM-dd')
 param serviceBusRoleAssignmentsPrimary object
 param serviceBusRoleAssignmentsSecondary object
 param secondaryRegionEnvironment string
+param privateLinkDnsZoneNameWebApp string
+param privateLinkDnsZoneNameWebAppScm string
+param privateDnsResourceGroups object
 
 var deploymentName = 'sign-up-sign-in-service-api-${deploymentDate}'
 var defaultTags = {
@@ -97,4 +100,18 @@ module roleAssignmentsServiceBusSecondary '../../../Defra.Infrastructure.Common/
   ]
 }
 
+output privateEndpointDNSRecords array = [
+  {
+    zone: privateLinkDnsZoneNameWebApp
+    record: toLower(webAppName)
+    resourceGroup: privateDnsResourceGroups.primary
+    id: resourceId('Microsoft.Network/privateEndpoints', privateEndpoint.name)
+  }
+  {
+    zone: privateLinkDnsZoneNameWebAppScm
+    record: toLower(webAppName)
+    resourceGroup: privateDnsResourceGroups.primary
+    id: resourceId('Microsoft.Network/privateEndpoints', privateEndpoint.name)
+  }
+]
 
