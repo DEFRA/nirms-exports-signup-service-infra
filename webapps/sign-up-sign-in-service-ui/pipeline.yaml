@@ -41,13 +41,21 @@ extends:
         resourceGroupName: '$(Environment.Name)GC$(nc-function-infrastructure)$(nc-resource-resourcegroup)$(nc-region-id)01'
         scope: 'Resource Group'
         type: 'bicep'
-        runPrivateEndpointDns: true
         resourceName: '$(Environment.Name)GC$(nc-function-web)$(nc-resource-webapp)$(nc-region-id)01'
         postDeployScriptsList:
           - displayName: 'Assign App Roles to Managed Identity'
             scriptRepo: trdPipelineCommon
             scriptPath: '/templates/powershell/appregs/AssignAppRolesToApp.ps1'
             scriptArguments: '-AppName $(Environment.Name)GC$(nc-function-web)$(nc-resource-webapp)$(nc-region-id)01 -BackendAppName $(Environment.Name)TRA$(nc-function-infrastructure)$(nc-resource-apimanagement)1002-Backend-ApimOAuth -RolesToAssinToApp $(roleTradeRemosRead),$(roleTradeRemosUpdate) -Clientid $(AdoSpClientId) -ClientSecret $(AdoSpClientSecret) -TenantId $(TenantId)'
+          - displayName: 'Resolve Private Endpoint IPs'
+            scriptRepo: trdPipelineCommon
+            scriptPath: '/templates/powershell/private-link/resolve-endpoint-ips.ps1'
+            scriptArguments: -TemplateOutput '$(azureDeploymentOutputs)' 
+          - displayName: 'Set Private Endpoint DNS'
+            scriptRepo: trdPipelineCommon
+            scriptPath: '/templates/powershell/private-link/private-endpoint-dns.ps1'
+            scriptArguments: -TemplateOutput '$(templateOutputWithIPs)'
+            serviceConnectionVariableName: 'privateLinkDnsServiceConnection'
     forceDevDeploy: ${{ parameters.forceDevDeploy }}
     projectName: REM    
     deployToSecondary: ${{ parameters.deployToSecondary}}

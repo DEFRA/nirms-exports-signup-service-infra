@@ -61,6 +61,18 @@
         }
       ]
     },
+    "privateLinkDnsZoneNameWebApp": {
+      "value": "#{{ privateLinkDnsZoneNameWebApp }}"
+    },
+    "privateLinkDnsZoneNameWebAppScm": {
+      "value": "#{{ privateLinkDnsZoneNameWebAppScm }}"
+    },
+    "privateDnsResourceGroups": {
+      "value": {
+        "primary": "#{{ privateLinkDnsResourceGroup }}",
+        "secondary": "#{{ privateLinkDnsResourceGroupSecondary }}"
+      }
+    },
     "keyvaultAccessPolicy": {
       "value": [
         {
