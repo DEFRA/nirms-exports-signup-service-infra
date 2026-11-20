@@ -17,6 +17,9 @@ param location string = resourceGroup().location
 param deploymentDate string = utcNow('yyyyMMdd-HHmmss')
 param createdDate string = utcNow('yyyy-MM-dd')
 param keyvaultAccessPolicy array
+param privateLinkDnsZoneNameWebApp string
+param privateLinkDnsZoneNameWebAppScm string
+param privateDnsResourceGroups object
 
 var deploymentName = 'sign-up-sign-in-service-ui-${deploymentDate}'
 var defaultTags = {
@@ -61,3 +64,18 @@ module webApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web/webA
     keyvaultAccessPolicy: keyvaultAccessPolicy
   }
 }
+
+output privateEndpointDNSRecords array = [
+  {
+    zone: privateLinkDnsZoneNameWebApp
+    record: toLower(webAppName)
+    resourceGroup: privateDnsResourceGroups.primary
+    id: resourceId('Microsoft.Network/privateEndpoints', privateEndpoint.name)
+  }
+  {
+    zone: privateLinkDnsZoneNameWebAppScm
+    record: toLower(webAppName)
+    resourceGroup: privateDnsResourceGroups.primary
+    id: resourceId('Microsoft.Network/privateEndpoints', privateEndpoint.name)
+  }
+]

@@ -68,7 +68,7 @@
         }
       ]
     },
-    "appConfigurationRoleAssignments": { 
+    "appConfigurationRoleAssignments": {
       "value": [
         {
           "roleId": "516239f1-63e1-4d78-a4de-a74fb236a071",
@@ -78,22 +78,32 @@
       ]
     },
     "serviceBusRoleAssignmentsPrimary": {
-      "value": 
-        {
-          "roleId": "090c5cfd-751d-490a-894a-3ce6f1109419",
-          "resourceGroupName": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01",
-          "resourceName": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-servicebus }}#{{ nc-region-id }}01"
-        }
-      
+      "value": {
+        "roleId": "090c5cfd-751d-490a-894a-3ce6f1109419",
+        "resourceGroupName": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-region-id }}01",
+        "resourceName": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-servicebus }}#{{ nc-region-id }}01"
+      }
+
     },
     "serviceBusRoleAssignmentsSecondary": {
-      "value": 
-        {
-          "roleId": "090c5cfd-751d-490a-894a-3ce6f1109419",
-          "resourceGroupName": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-secondary-region-id }}01",
-          "resourceName": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-servicebus }}#{{ nc-secondary-region-id }}01"
-        }
-      
+      "value": {
+        "roleId": "090c5cfd-751d-490a-894a-3ce6f1109419",
+        "resourceGroupName": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-resourcegroup }}#{{ nc-secondary-region-id }}01",
+        "resourceName": "#{{ Environment.Name }}TRE#{{ nc-function-infrastructure }}#{{ nc-resource-servicebus }}#{{ nc-secondary-region-id }}01"
+      }
+
+    },
+    "privateLinkDnsZoneNameWebApp": {
+      "value": "#{{ privateLinkDnsZoneNameWebApp }}"
+    },
+    "privateLinkDnsZoneNameWebAppScm": {
+      "value": "#{{ privateLinkDnsZoneNameWebAppScm }}"
+    },
+    "privateDnsResourceGroups": {
+      "value": {
+        "primary": "#{{ privateLinkDnsResourceGroup }}",
+        "secondary": "#{{ privateLinkDnsResourceGroupSecondary }}"
+      }
     },
     "secondaryRegionEnvironment": {
       "value": "#{{ secondaryRegionEnvironment }}"
