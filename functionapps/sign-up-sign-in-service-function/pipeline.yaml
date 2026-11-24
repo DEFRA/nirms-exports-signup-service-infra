@@ -57,3 +57,4 @@ extends:
     projectName: TRE
     keyVaultName: '$(Environment.Name)trdinfkv1001'
     
+    

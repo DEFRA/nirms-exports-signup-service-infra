@@ -41,7 +41,6 @@ var defaultTags = {
 var configurationServerUri = !empty(appConfigurationRoleAssignments) && contains(first(appConfigurationRoleAssignments),'resourceName')?'https://${first(appConfigurationRoleAssignments).resourceName}.azconfig.io': ''
 var customAppSettings = {
   'ConfigurationServer:Uri': configurationServerUri
-  'FUNCTIONS_INPROC_NET8_ENABLED' : 1
 } 
 
 module functionApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web/functionApps.bicep' = {
@@ -63,8 +62,8 @@ module functionApp '../../../Defra.Infrastructure.Common/templates/Microsoft.Web
     appInsightsResourceGroup:appInsightsResourceGroup
     buildAgentIPAddress:buildAgentIPAddress
     environment:environment
-    netFrameworkVersion:'v8.0'
-    functionExtensionVersion:'~4'
+    functionWorkerRuntime: 'dotnet-isolated'
+    netFrameworkVersion: 'v10.0'
     privateEndpoint: privateEndpoint
     customAppSettings: customAppSettings
     appConfigurationRoleAssignments: appConfigurationRoleAssignments
