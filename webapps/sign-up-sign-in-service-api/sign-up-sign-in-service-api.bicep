@@ -114,4 +114,3 @@ output privateEndpointDNSRecords array = [
     id: resourceId('Microsoft.Network/privateEndpoints', privateEndpoint.name)
   }
 ]
-
